@@ -17,4 +17,6 @@ public interface UserDao extends JpaRepository<User, Long>{
 	User findByUserId(Long userId);
 
 	User save(User user);
+	
+	List<User> 	findByFirstNameLikeOrLastNameLikeOrUserNameLike(String firstName, String lastName, String userName);
 }

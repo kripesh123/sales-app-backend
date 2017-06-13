@@ -46,4 +46,9 @@ public class UserServiceImpl implements UserService{
 		
 	}
 
+	@Override
+	public List<User> findByFirstNameLikeAndLastNameAndUserName(String firstName, String lastName, String userName) {
+		return userDao.findByFirstNameLikeOrLastNameLikeOrUserNameLike(firstName, lastName, userName);
+	}
+
 }

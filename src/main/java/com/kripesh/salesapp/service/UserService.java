@@ -15,4 +15,6 @@ public interface UserService {
 	User save(User user);
 	
 	User update(User user);
+	
+	List<User> 	findByFirstNameLikeAndLastNameAndUserName(String firstName, String lastName, String userName);
 }
