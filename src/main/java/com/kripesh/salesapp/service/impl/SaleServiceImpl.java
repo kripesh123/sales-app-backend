@@ -8,17 +8,17 @@ import org.springframework.stereotype.Service;
 
 import com.kripesh.salesapp.dao.CustomerDao;
 import com.kripesh.salesapp.dao.ItemDao;
-import com.kripesh.salesapp.dao.SalesDao;
+import com.kripesh.salesapp.dao.SaleDao;
 import com.kripesh.salesapp.model.Customer;
 import com.kripesh.salesapp.model.Item;
-import com.kripesh.salesapp.model.Sales;
-import com.kripesh.salesapp.service.SalesService;
+import com.kripesh.salesapp.model.Sale;
+import com.kripesh.salesapp.service.SaleService;
 
 @Service
-public class SalesServiceImpl implements SalesService{
+public class SaleServiceImpl implements SaleService{
 	
 	@Autowired
-	SalesDao salesDao;
+	SaleDao salesDao;
 	
 	@Autowired
 	ItemDao itemDao;
@@ -27,46 +27,46 @@ public class SalesServiceImpl implements SalesService{
 	CustomerDao customerDao;
 
 	@Override
-	public List<Sales> findAll() {
+	public List<Sale> findAll() {
 		return salesDao.findAll();
 	}
 
 	@Override
-	public Sales findBySalesId(Long salesId) {
-		return salesDao.findBySalesId(salesId);
+	public Sale findBySaleId(Long saleId) {
+		return salesDao.findBySaleId(saleId);
 	}
 
 	@Override
-	public Sales save(Sales sales) {
+	public Sale save(Sale sale) {
 		int totalPrice =0;
 		int totalQuantity=0;
 		List<Item> itemList = new ArrayList<>();
-		for(Item item: sales.getItemLists()){
+		for(Item item: sale.getItemList()){
 			Item purchaseItem = itemDao.findByItemId(item.getItemId());
 			int totalItemCost = purchaseItem.getPrice() * item.getQuantity();
 			totalPrice = totalPrice + totalItemCost;
-			totalQuantity = totalQuantity+item.getQuantity();
+			totalQuantity = totalQuantity + item.getQuantity();
 			purchaseItem.setSoldQuantity(item.getQuantity());
 			itemDao.save(purchaseItem);
 			itemList.add(purchaseItem);
 		}
-		Customer customer =customerDao.findByCustomerId(sales.getCustomer().getCustomerId());
-		sales.setCustomer(customer);
-		sales.setItemLists(itemList);
-		sales.setTotalPrice(totalPrice);
-		sales.setSoldPrice(sales.getSoldPrice());
-		sales.setTotalQuantity(totalQuantity);
-		return salesDao.save(sales);
+		Customer customer =customerDao.findByCustomerId(sale.getCustomer().getCustomerId());
+		sale.setCustomer(customer);
+		sale.setItemList(itemList);
+		sale.setTotalPrice(totalPrice);
+		sale.setSoldPrice(sale.getSoldPrice());
+		sale.setTotalQuantity(totalQuantity);
+		return salesDao.save(sale);
 	}
 
 	@Override
-	public List<Sales> findByMonth(int month) {
+	public List<Sale> findByMonth(int month) {
 		return salesDao.findByMonth(month);
 	}
 
 	@Override
-	public List<Sales> findTodaysSales() {
-		return salesDao.findTodaysSales();
+	public List<Sale> findTodaysSale() {
+		return salesDao.findTodaysSale();
 	}
 
 	

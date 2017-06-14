@@ -3,34 +3,30 @@ package com.kripesh.salesapp.model;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-public class Sales {
+public class Sale {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long salesId;
+	private Long saleId;
 	
 	@ManyToOne
 	@JsonBackReference
 	private Customer customer;
 	
 	@ManyToMany
-	private List<Item> itemLists;
+	private List<Item> itemList;
 	
 	private int totalQuantity;
 	
@@ -41,12 +37,12 @@ public class Sales {
 	@CreationTimestamp
 	private Date created;
 
-	public Long getSalesId() {
-		return salesId;
+	public Long getSaleId() {
+		return saleId;
 	}
 
-	public void setSalesId(Long salesId) {
-		this.salesId = salesId;
+	public void setSaleId(Long saleId) {
+		this.saleId = saleId;
 	}
 
 	public Customer getCustomer() {
@@ -57,12 +53,12 @@ public class Sales {
 		this.customer = customer;
 	}
 
-	public List<Item> getItemLists() {
-		return itemLists;
+	public List<Item> getItemList() {
+		return itemList;
 	}
 
-	public void setItemLists(List<Item> itemLists) {
-		this.itemLists = itemLists;
+	public void setItemList(List<Item> itemList) {
+		this.itemList = itemList;
 	}
 
 	public int getTotalQuantity() {

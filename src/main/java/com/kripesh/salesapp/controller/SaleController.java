@@ -17,51 +17,51 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.kripesh.salesapp.model.Sales;
-import com.kripesh.salesapp.service.SalesService;
+import com.kripesh.salesapp.model.Sale;
+import com.kripesh.salesapp.service.SaleService;
 
 @RestController
 @RequestMapping(API_VER + SALES_PATH)
-public class SalesController {
+public class SaleController {
 	
 	@Autowired
-	SalesService salesService;
+	SaleService saleService;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<Sales>> getAllSales(){
-		List<Sales> salesList = salesService.findAll();
-		return new ResponseEntity<List<Sales>>(salesList,HttpStatus.OK);
+	public ResponseEntity<List<Sale>> getAllSale(){
+		List<Sale> salesList = saleService.findAll();
+		return new ResponseEntity<List<Sale>>(salesList,HttpStatus.OK);
 	}
 	
 	@RequestMapping(method = RequestMethod.GET,params={ACTION_TODAYS_SALE})
-	public ResponseEntity<List<Sales>> getTodaySales(@RequestParam String action){
-		List<Sales> todaysSaleList = salesService.findTodaysSales();
+	public ResponseEntity<List<Sale>> getTodaySales(@RequestParam String action){
+		List<Sale> todaysSaleList = saleService.findTodaysSale();
 		if(todaysSaleList.isEmpty() || todaysSaleList == null){
-			return new ResponseEntity<List<Sales>>(todaysSaleList,HttpStatus.NO_CONTENT);
+			return new ResponseEntity<List<Sale>>(todaysSaleList,HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<List<Sales>>(todaysSaleList,HttpStatus.OK);
+		return new ResponseEntity<List<Sale>>(todaysSaleList,HttpStatus.OK);
 	}
 	
 	@RequestMapping(method = RequestMethod.GET,params={ACTION_MONTHS_SALE})
-	public ResponseEntity<List<Sales>> getMonthSales(@RequestParam String action,@RequestParam String formatted){
+	public ResponseEntity<List<Sale>> getMonthSales(@RequestParam String action,@RequestParam String formatted){
 		Date date = new Date(formatted);
-		List<Sales> monthsSaleList = salesService.findByMonth(date.getMonth()+1);
+		List<Sale> monthsSaleList = saleService.findByMonth(date.getMonth()+1);
 		if(monthsSaleList.isEmpty() || monthsSaleList == null){
-			return new ResponseEntity<List<Sales>>(monthsSaleList,HttpStatus.NO_CONTENT);
+			return new ResponseEntity<List<Sale>>(monthsSaleList,HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<List<Sales>>(monthsSaleList,HttpStatus.OK);
+		return new ResponseEntity<List<Sale>>(monthsSaleList,HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-    public ResponseEntity<Sales> saveSales(@RequestBody Sales sales) {
-		salesService.save(sales);
-         return new ResponseEntity<Sales>(sales,HttpStatus.CREATED);
+    public ResponseEntity<Sale> saveSales(@RequestBody Sale sales) {
+		saleService.save(sales);
+         return new ResponseEntity<Sale>(sales,HttpStatus.CREATED);
     }
 	
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-    public ResponseEntity<Sales> updateSales(@RequestBody Sales sales) {
-		Sales updatedSales=salesService.save(sales);
-         return new ResponseEntity<Sales>(updatedSales,HttpStatus.CREATED);
+    public ResponseEntity<Sale> updateSales(@RequestBody Sale sales) {
+		Sale updatedSales=saleService.save(sales);
+         return new ResponseEntity<Sale>(updatedSales,HttpStatus.CREATED);
     }
 
 }

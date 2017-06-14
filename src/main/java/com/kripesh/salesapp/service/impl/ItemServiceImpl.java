@@ -26,8 +26,8 @@ public class ItemServiceImpl implements ItemService{
 	}
 
 	@Override
-	public List<Item> findByname(String name) {
-		return itemDao.findByname(name);
+	public List<Item> findByName(String name) {
+		return itemDao.findByName(name);
 	}
 
 	@Override

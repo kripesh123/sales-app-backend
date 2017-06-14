@@ -9,7 +9,7 @@ public interface ItemService {
 
 	List<Item> findAll();
 	
-	List<Item> findByname(String name);
+	List<Item> findByName(String name);
 
 	Item findByItemId(Long itemId);
 

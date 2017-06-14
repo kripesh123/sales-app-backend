@@ -10,7 +10,7 @@ public interface ProductService {
 
 	Product findByDistributor(Distributor distributor);
 	
-	Product findByname(String name);
+	Product findByName(String name);
 
 	Product findByProductId(Long productId);
 
