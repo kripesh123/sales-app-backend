@@ -14,5 +14,7 @@ public class ApiConstant {
 	public static final String LASTNAME_PARAM = "lastName";
 	public static final String ACTION_SEARCH_USER = "action=searchUser";
 	public static final String ACTION_CHECK_ITEMS = "action=checkItems";
+	public static final String ACTION_TODAYS_SALE = "action=todaysSales";
+	public static final String ACTION_MONTHS_SALE = "action=monthsSales";
 	
 }

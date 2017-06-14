@@ -59,4 +59,16 @@ public class SalesServiceImpl implements SalesService{
 		return salesDao.save(sales);
 	}
 
+	@Override
+	public List<Sales> findByMonth(int month) {
+		return salesDao.findByMonth(month);
+	}
+
+	@Override
+	public List<Sales> findTodaysSales() {
+		return salesDao.findTodaysSales();
+	}
+
+	
+
 }
