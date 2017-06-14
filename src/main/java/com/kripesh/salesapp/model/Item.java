@@ -30,6 +30,8 @@ public class Item {
 	
 	private int quantity;
 	
+	private int soldQuantity;
+	
 	private int price;
 	
 
@@ -79,6 +81,14 @@ public class Item {
 
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+	}
+
+	public int getSoldQuantity() {
+		return soldQuantity;
+	}
+
+	public void setSoldQuantity(int soldQuantity) {
+		this.soldQuantity = soldQuantity;
 	}
 
 	public int getPrice() {

@@ -4,6 +4,7 @@ import static com.kripesh.salesapp.controller.utils.ApiConstant.ACTION_CHECK_ITE
 import static com.kripesh.salesapp.controller.utils.ApiConstant.API_VER;
 import static com.kripesh.salesapp.controller.utils.ApiConstant.ITEM_PATH;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,22 @@ public class ItemController {
 			return new ResponseEntity<List<Item>>(itemList,HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<List<Item>>(itemList,HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="stock-items", method = RequestMethod.GET)
+	public ResponseEntity<List<Item>> getStockItem(@RequestParam int minItem){
+		List<Item> processItemList = new ArrayList<>();
+		List<Item> itemList=itemService.findAll();
+		itemList.forEach(item ->{
+			if(item.getQuantity()-item.getSoldQuantity() <= minItem){
+				processItemList.add(item);
+			}
+		});
 		
+		if(processItemList.isEmpty() || processItemList == null){
+			return new ResponseEntity<List<Item>>(processItemList,HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<List<Item>>(processItemList,HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/save", method = RequestMethod.POST)

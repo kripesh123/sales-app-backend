@@ -46,7 +46,7 @@ public class SalesServiceImpl implements SalesService{
 			int totalItemCost = purchaseItem.getPrice() * item.getQuantity();
 			totalPrice = totalPrice + totalItemCost;
 			totalQuantity = totalQuantity+item.getQuantity();
-			purchaseItem.setQuantity(purchaseItem.getQuantity() - item.getQuantity());
+			purchaseItem.setSoldQuantity(item.getQuantity());
 			itemDao.save(purchaseItem);
 			itemList.add(purchaseItem);
 		}
