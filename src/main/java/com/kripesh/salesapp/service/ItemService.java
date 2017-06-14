@@ -16,4 +16,6 @@ public interface ItemService {
 	Item save(Item item);
 	
 	List<Item> findByProduct(Product product);
+	
+	List<Item> findByQuantityLessThan(int quantity);
 }

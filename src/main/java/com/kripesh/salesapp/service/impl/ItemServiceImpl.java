@@ -47,4 +47,9 @@ public class ItemServiceImpl implements ItemService{
 		return itemDao.findByProduct(product);
 	}
 
+	@Override
+	public List<Item> findByQuantityLessThan(int quantity) {
+		return itemDao.findByQuantityLessThan(quantity);
+	}
+
 }

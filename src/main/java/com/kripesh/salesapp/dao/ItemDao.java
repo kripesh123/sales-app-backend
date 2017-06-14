@@ -20,5 +20,7 @@ public interface ItemDao extends JpaRepository<Item, Long>{
 	Item save(Item item);
 	
 	List<Item> findByProduct(Product product);
+	
+	List<Item> findByQuantityLessThan(int quantity);
 
 }
