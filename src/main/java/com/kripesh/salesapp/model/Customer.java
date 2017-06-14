@@ -9,10 +9,12 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -32,7 +34,8 @@ public class Customer {
 	
 	@OneToMany(mappedBy = "customer",cascade = CascadeType.ALL,fetch=FetchType.EAGER)
 	@JsonManagedReference
-	private List<Item> itemList;
+	private List<Sales> salesList;
+	
 
 	public Long getCustomerId() {
 		return customerId;
@@ -82,11 +85,11 @@ public class Customer {
 		this.created = created;
 	}
 
-	public List<Item> getItemList() {
-		return itemList;
+	public List<Sales> getSalesList() {
+		return salesList;
 	}
 
-	public void setItemList(List<Item> itemList) {
-		this.itemList = itemList;
-	}
+	public void setSalesList(List<Sales> salesList) {
+		this.salesList = salesList;
+	}	
 }

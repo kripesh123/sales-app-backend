@@ -25,12 +25,8 @@ public class Item {
 	private Date created;
 	
 	@ManyToOne
-	@JsonBackReference
-	private Product product;
-	
-	@ManyToOne
-	@JsonBackReference
-	private Customer customer;
+	@JsonBackReference(value="product-item")
+	private Product product;		
 	
 	private int quantity;
 	
@@ -91,13 +87,5 @@ public class Item {
 
 	public void setPrice(int price) {
 		this.price = price;
-	}
-
-	public Customer getCustomer() {
-		return customer;
-	}
-
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
+	}	
 }

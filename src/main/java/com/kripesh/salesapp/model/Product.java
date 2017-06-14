@@ -30,11 +30,11 @@ public class Product {
 	private Date created;
 	
 	@ManyToOne
-	@JsonBackReference
+	@JsonBackReference(value="distributor-product")
 	private Distributor distributor;
 	
-	@OneToMany(mappedBy = "product",cascade = CascadeType.ALL,fetch=FetchType.EAGER)
-	@JsonManagedReference
+	@OneToMany(mappedBy = "product",fetch=FetchType.EAGER)
+	@JsonManagedReference(value="product-item")
 	private List<Item> itemList;
 
 	public Long getProductId() {

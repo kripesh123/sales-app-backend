@@ -12,7 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -28,8 +30,11 @@ public class Distributor {
 	@CreationTimestamp
 	private Date created;
 	
+	@UpdateTimestamp
+	private Date updated;
+	
 	@OneToMany(mappedBy = "distributor",cascade = CascadeType.ALL,fetch=FetchType.EAGER)
-	@JsonManagedReference
+	@JsonManagedReference(value="distributor-product")
 	private List<Product> productList;
 
 	public Long getDistributorId() {
@@ -62,6 +67,14 @@ public class Distributor {
 
 	public void setCreated(Date created) {
 		this.created = created;
+	}
+
+	public Date getUpdated() {
+		return updated;
+	}
+
+	public void setUpdated(Date updated) {
+		this.updated = updated;
 	}
 
 	public List<Product> getProductList() {
