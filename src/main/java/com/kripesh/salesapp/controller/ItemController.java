@@ -22,52 +22,54 @@ import com.kripesh.salesapp.service.ItemService;
 @RestController
 @RequestMapping(API_VER + ITEM_PATH)
 public class ItemController {
-	
-	@Autowired
-	ItemService itemService;
-	
-	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<Item>>  getAllItem(){	
-		List<Item> itemList=itemService.findAll();
-		return new ResponseEntity<List<Item>>(itemList,HttpStatus.OK);
-	}
-	
-	@RequestMapping(value="items", method = RequestMethod.GET,params={ACTION_CHECK_ITEMS})
-	public ResponseEntity<List<Item>> getMinItem(@RequestParam String action,@RequestParam Integer quantity){
-		List<Item> itemList = itemService.findByQuantityLessThan(quantity);
-		if(itemList.isEmpty() || itemList == null){
-			return new ResponseEntity<List<Item>>(itemList,HttpStatus.NO_CONTENT);
-		}
-		return new ResponseEntity<List<Item>>(itemList,HttpStatus.OK);
-	}
-	
-	@RequestMapping(value="stock-items", method = RequestMethod.GET)
-	public ResponseEntity<List<Item>> getStockItem(@RequestParam int minItem){
-		List<Item> processItemList = new ArrayList<>();
-		List<Item> itemList=itemService.findAll();
-		itemList.forEach(item ->{
-			if(item.getQuantity()-item.getSoldQuantity() <= minItem){
-				processItemList.add(item);
-			}
-		});
-		
-		if(processItemList.isEmpty() || processItemList == null){
-			return new ResponseEntity<List<Item>>(processItemList,HttpStatus.NO_CONTENT);
-		}
-		return new ResponseEntity<List<Item>>(processItemList,HttpStatus.OK);
-	}
-	
-	@RequestMapping(value = "/save", method = RequestMethod.POST)
+
+    @Autowired
+    ItemService itemService;
+
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<List<Item>> getAllItem() {
+        List<Item> itemList = itemService.findAll();
+        return new ResponseEntity<List<Item>>(itemList, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "items", method = RequestMethod.GET, params = {ACTION_CHECK_ITEMS})
+    public ResponseEntity<List<Item>> getMinItem(@RequestParam String action, @RequestParam Integer quantity) {
+        List<Item> itemList = itemService.findByQuantityLessThan(quantity);
+        if (itemList.isEmpty() || itemList == null) {
+            return new ResponseEntity<List<Item>>(itemList, HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<List<Item>>(itemList, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "stock-items", method = RequestMethod.GET)
+    public ResponseEntity<List<Item>> getStockItem(@RequestParam int minItem) {
+        List<Item> processItemList = new ArrayList<>();
+        List<Item> itemList = itemService.findAll();
+        itemList.forEach(item -> {
+            if (item.getQuantity() - item.getSoldQuantity() <= minItem) {
+                processItemList.add(item);
+            }
+        });
+
+        if (processItemList.isEmpty() || processItemList == null) {
+            return new ResponseEntity<List<Item>>(processItemList, HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<List<Item>>(processItemList, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
     public ResponseEntity<Item> saveItem(@RequestBody Item item) {
-		itemService.save(item);
-         return new ResponseEntity<Item>(item,HttpStatus.CREATED);
+        itemService.save(item);
+        return new ResponseEntity<Item>(item, HttpStatus.CREATED);
     }
-	
-	@RequestMapping(value = "/update", method = RequestMethod.POST)
+
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
     public ResponseEntity<Item> updateItem(@RequestBody Item item) {
-         Item updatedItem=itemService.save(item);
-         return new ResponseEntity<Item>(updatedItem,HttpStatus.CREATED);
+        Item updatedItem = itemService.save(item);
+        System.out.println("this is a test");
+        return new ResponseEntity<Item>(updatedItem, HttpStatus.CREATED);
+
     }
-	
+
 
 }
